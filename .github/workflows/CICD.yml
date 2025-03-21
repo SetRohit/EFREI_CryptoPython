@@ -9,7 +9,7 @@ on: push
           with:
             host: "ssh-${{ secrets.USERNAME }}.alwaysdata.net"
             username: ${{ secrets.USERNAME }}
-            key: ${{ secrets.ALWAYSDATA_KEY }}
+            key: ${{ secrets.ALWAYS_KEY }}
             script: |
               cd $HOME/www//
   Copy:
