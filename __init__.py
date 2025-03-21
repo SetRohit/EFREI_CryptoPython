@@ -7,9 +7,9 @@ app = Flask(__name__)
 def hello_world():
     return render_template('hello.html')  # Page d'accueil
 
-# Génération de la clé (ATTENTION : à fixer en prod pour éviter de perdre les données)
-key = Fernet.generate_key()
-f = Fernet(key)
+# 🔐 Clé fixe (générée une seule fois avec Fernet.generate_key(), puis copiée ici)
+FIXED_KEY = b'MARemplaceParUneVraieCleBase64=='  # Mets ici une vraie clé générée avec Fernet.generate_key()
+f = Fernet(FIXED_KEY)
 
 @app.route('/encrypt/<string:valeur>')
 def encryptage(valeur):
