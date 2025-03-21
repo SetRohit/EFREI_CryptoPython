@@ -7,20 +7,24 @@ app = Flask(__name__)
 def hello_world():
     return "Bienvenue sur l'application de chiffrement/déchiffrement"
 
+# Route pour l'encryptage
 @app.route('/encrypt/<string:key>/<string:valeur>')
 def encryptage(key, valeur):
     try:
-        f = Fernet(key.encode())  # Création d'un objet Fernet avec la clé fournie
+        # Création de l'objet Fernet avec la clé fournie dans l'URL
+        f = Fernet(key.encode())  
         valeur_bytes = valeur.encode()  # Conversion str -> bytes
         token = f.encrypt(valeur_bytes)  # Chiffre la valeur
         return jsonify({"encrypted_text": token.decode()})  # Retourne la valeur chiffrée
     except Exception as e:
         return jsonify({"error": f"Clé invalide : {str(e)}"}), 400
 
+# Route pour le décryptage
 @app.route('/decrypt/<string:key>/<string:token>')
 def decryptage(key, token):
     try:
-        f = Fernet(key.encode())  # Création d'un objet Fernet avec la clé fournie
+        # Création de l'objet Fernet avec la clé fournie dans l'URL
+        f = Fernet(key.encode())  
         token_bytes = token.encode()  # Conversion str -> bytes
         valeur_decryptee = f.decrypt(token_bytes)  # Décryptage
         return jsonify({"decrypted_text": valeur_decryptee.decode()})  # Retourne la valeur déchiffrée
